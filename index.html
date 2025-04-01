@@ -9,9 +9,15 @@
 </head>
 
 <body>
+    <!-- Add at the beginning of body -->
+    <div id="loader-overlay">
+        <div class="loader"></div>
+    </div>
     <nav>
+
         <div class="container nav-container">
             <div class="logo">AF</div>
+            
             <button class="mobile-menu-btn">☰</button>
             <div class="nav-links">
                 <a href="#experiencia" class="nav-link">Experiencia</a>
@@ -71,7 +77,7 @@
                     <div class="card-header">
                         <h3>Docente de ICT</h3>
                         <h4>Corporación Marymount</h4>
-                        <span class="date">Agosto 2021 - Presente</span>
+                        <span class="date"> ago. 2021 - Hoy</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -90,7 +96,7 @@
                     <div class="card-header">
                         <h3>Docente de Matemáticas y STEAM</h3>
                         <h4>Colegio Campestre La Colina</h4>
-                        <span class="date">Enero 2021 - Julio 2021</span>
+                        <span class="date"> ene. 2021 - jul. 2021</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -106,7 +112,7 @@
                     <div class="card-header">
                         <h3>Profesor de Inglés</h3>
                         <h4>The Best School (TBS)</h4>
-                        <span class="date">Febrero 2020 - Septiembre 2020</span>
+                        <span class="date"> feb. 2020 - sep. 2020</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -120,7 +126,7 @@
                     <div class="card-header">
                         <h3>Tallerista de Robótica</h3>
                         <h4>Parque Explora</h4>
-                        <span class="date">Octubre 2019</span>
+                        <span class="date"> oct. 2019</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -138,7 +144,7 @@
                     <div class="card-header">
                         <h3>Ingeniero de Control</h3>
                         <h4>Cedestic Group</h4>
-                        <span class="date">Septiembre 2019 - Octubre 2019</span>
+                        <span class="date"> sept. 2019 - oct. 2019</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -153,7 +159,7 @@
                     <div class="card-header">
                         <h3>Tutor Privado</h3>
                         <h4>Ingenium Tutorías</h4>
-                        <span class="date">Agosto 2015 - Diciembre 2015</span>
+                        <span class="date"> ago. 2015 - dic. 2015</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -175,7 +181,7 @@
                     <div class="card-header">
                         <h3>Master of Science en Nanociencia y Nanotecnología</h3>
                         <h4>KU Leuven y Université Grenoble Alpes</h4>
-                        <span class="date">Septiembre 2016 - Septiembre 2018</span>
+                        <span class="date"> 2016 - 2018</span>
                     </div>
                     <div class="card-body">
                         <ul>
@@ -337,7 +343,7 @@
                 <div class="experience-card">
                     <div class="card-header">
                         <h3>Mentor de Equipos Tecnológicos</h3>
-                        <h4>Competencias Nacionales</h4>
+                        <h4>Competencias Intercolegiales</h4>
                         <span class="date">2022-Presente</span>
                     </div>
                     <div class="card-body">
@@ -425,11 +431,39 @@
     </button>
 
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function () {
-            document.querySelector('.nav-links').classList.toggle('active');
+        // Loader
+        window.addEventListener('load', function () {
+            document.getElementById('loader-overlay').classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('loader-overlay').style.display = 'none';
+            }, 500);
         });
 
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function () {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+
+            // Toggle between hamburger and close icon
+            this.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+
+            if (navLinks.classList.contains('active') &&
+                !navLinks.contains(event.target) &&
+                !mobileBtn.contains(event.target)) {
+                navLinks.classList.remove('active');
+                mobileBtn.innerHTML = '☰';
+                document.body.style.overflow = '';
+            }
+        });
         // Scroll to top functionality
         const scrollTopBtn = document.getElementById('scrollTopBtn');
 
